@@ -2,7 +2,7 @@ package com.proofit.insurance.supplier;
 
 import com.github.javaparser.quality.NotNull;
 import com.proofit.insurance.model.InsuredObject;
-import com.proofit.insurance.model.RiskType;
+import com.proofit.insurance.calculator.RiskType;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

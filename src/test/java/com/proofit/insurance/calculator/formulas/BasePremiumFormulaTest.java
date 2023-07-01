@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.proofit.insurance.model.RiskType.*;
+import static com.proofit.insurance.calculator.RiskType.*;
 import static java.math.BigDecimal.valueOf;
 import static java.util.List.of;
 

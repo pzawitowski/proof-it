@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.proofit.insurance.model.RiskType.*;
+import static com.proofit.insurance.calculator.RiskType.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BicycleMapperTest {
@@ -22,7 +22,7 @@ public class BicycleMapperTest {
         bicycle.setMake("Canyon");
         bicycle.setModel("Model 1");
         bicycle.setSumInsured(new BigDecimal("100.00"));
-        bicycle.setRisks(List.of("DAMAGE", "THEFT", "THIRD_PARTY_DAMAGE"));
+        bicycle.setRisks(List.of(DAMAGE, THEFT, THIRD_PARTY_DAMAGE));
         bicycle.setManufactureYear(2023);
 
         // when

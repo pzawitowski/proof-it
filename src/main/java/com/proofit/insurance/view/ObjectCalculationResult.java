@@ -3,7 +3,7 @@ package com.proofit.insurance.view;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class CalculationResult {
+public class ObjectCalculationResult {
     private Attributes attributes;
     private List<Risk> risks;
     private BigDecimal sumInsured;

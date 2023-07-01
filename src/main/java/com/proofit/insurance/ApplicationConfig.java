@@ -1,10 +1,12 @@
 package com.proofit.insurance;
 
+import com.proofit.insurance.calculator.Calculator;
 import com.proofit.insurance.calculator.InsuranceCalculator;
-import com.proofit.insurance.calculator.PremiumInsuranceCalculator;
 import com.proofit.insurance.calculator.formulas.*;
 import com.proofit.insurance.supplier.CalculationDataSupplier;
 import com.proofit.insurance.supplier.GroovyCalculationDataSupplier;
+import com.proofit.insurance.validator.InsuredObjectValidator;
+import com.proofit.insurance.validator.Validator;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,8 +40,15 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public InsuranceCalculator insuranceCalculator(List<CalculationFormula> premiumFormulas, List<CalculationFormula> insuranceSumFormulas) {
-        return new PremiumInsuranceCalculator(premiumFormulas);
+    Validator bicycleValidator() {
+        return new InsuredObjectValidator();
+    }
+
+    @Bean
+    public Calculator insuranceCalculator(List<CalculationFormula> premiumFormulas,
+                                          List<CalculationFormula> insuranceSumFormulas,
+                                          Validator validator) {
+        return new InsuranceCalculator(premiumFormulas, insuranceSumFormulas, validator);
     }
 
     @Bean

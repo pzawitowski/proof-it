@@ -1,16 +1,15 @@
 package com.proofit.insurance.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.proofit.insurance.calculator.RiskType;
 import com.proofit.insurance.view.Bicycle;
 import com.proofit.insurance.view.CalculationRequest;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -33,7 +32,7 @@ class BicyclesInsuranceControllerTest {
     ObjectMapper objectMapper;
 
     @Test
-    void givenOneObject_whenCalculate_thenStatus200WithThisObjectAndCalculatedPremium() throws Exception {
+    void givenOneObject_whenCalculate_thenStatus200WithThisObjectAndCalculatedPremiumAndSumInsured() throws Exception {
         CalculationRequest request = new CalculationRequest();
         Bicycle bicycle = new Bicycle();
         bicycle.setMake("Pearl");
@@ -41,7 +40,7 @@ class BicyclesInsuranceControllerTest {
         bicycle.setCoverage("EXTRA");
         bicycle.setManufactureYear(2015);
         bicycle.setSumInsured(new BigDecimal("1000.00"));
-        bicycle.setRisks(List.of("DAMAGE"));
+        bicycle.setRisks(List.of(RiskType.DAMAGE));
 
         request.setBicycles(List.of(bicycle));
 
@@ -55,6 +54,7 @@ class BicyclesInsuranceControllerTest {
                 .andExpect(jsonPath("objects[0].attributes.MAKE", equalTo("Pearl")))
                 .andExpect(jsonPath("objects[0].risks", hasSize(1)))
                 .andExpect(jsonPath("objects[0].risks[0].riskType", equalTo("DAMAGE")))
-                .andExpect(jsonPath("objects[0].risks[0].premium", notNullValue()));
+                .andExpect(jsonPath("objects[0].risks[0].premium", notNullValue()))
+                .andExpect(jsonPath("objects[0].risks[0].sumInsured", notNullValue()));
     }
 }

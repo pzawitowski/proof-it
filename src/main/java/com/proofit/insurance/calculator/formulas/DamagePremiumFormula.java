@@ -1,7 +1,7 @@
 package com.proofit.insurance.calculator.formulas;
 
 import com.proofit.insurance.model.InsuredObject;
-import com.proofit.insurance.model.RiskType;
+import com.proofit.insurance.calculator.RiskType;
 import com.proofit.insurance.supplier.CalculationDataSupplier;
 import com.proofit.insurance.supplier.DateSupplier;
 

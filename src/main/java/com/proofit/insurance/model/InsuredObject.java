@@ -1,5 +1,7 @@
 package com.proofit.insurance.model;
 
+import com.proofit.insurance.calculator.RiskType;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -11,8 +13,6 @@ public class InsuredObject {
     private String coverage;
 
     private List<RiskType> risks;
-
-
 
     public InsuredObject() {
     }

@@ -1,5 +1,7 @@
 package com.proofit.insurance.view;
 
+import com.proofit.insurance.calculator.RiskType;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -14,10 +16,9 @@ public class Bicycle {
 
     private Integer manufactureYear;
 
-
     private BigDecimal sumInsured;
 
-    private List<String> risks;
+    private List<RiskType> risks;
 
     public String getMake() {
         return make;
@@ -59,11 +60,11 @@ public class Bicycle {
         this.sumInsured = sumInsured;
     }
 
-    public List<String> getRisks() {
+    public List<RiskType> getRisks() {
         return risks;
     }
 
-    public void setRisks(List<String> risks) {
+    public void setRisks(List<RiskType> risks) {
         this.risks = risks;
     }
 }

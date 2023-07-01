@@ -1,5 +1,7 @@
 package com.proofit.insurance.model;
 
+import com.proofit.insurance.calculator.RiskType;
+
 import java.math.BigDecimal;
 
 public class RiskCalculationResult {

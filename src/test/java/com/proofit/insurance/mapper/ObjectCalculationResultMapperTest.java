@@ -1,10 +1,9 @@
 package com.proofit.insurance.mapper;
 
 import com.proofit.insurance.model.InsuredObject;
-import com.proofit.insurance.model.InsuredObjectCalculationResult;
 import com.proofit.insurance.model.RiskCalculationResult;
-import com.proofit.insurance.model.RiskType;
-import com.proofit.insurance.view.CalculationResult;
+import com.proofit.insurance.calculator.RiskType;
+import com.proofit.insurance.view.ObjectCalculationResult;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
@@ -22,22 +21,18 @@ class ObjectCalculationResultMapperTest {
         // given
         ObjectCalculationResultMapper mapper = new ObjectCalculationResultMapper(modelMapper);
 
-        InsuredObjectCalculationResult objectCalculationResult = new InsuredObjectCalculationResult();
         InsuredObject insuredObject = new InsuredObject("Canyon", "Model", "STANDARD", 2023, new BigDecimal("100"));
 
         RiskCalculationResult damageRisk = new RiskCalculationResult(RiskType.DAMAGE, new BigDecimal(50), new BigDecimal(20));
         RiskCalculationResult theftRisk = new RiskCalculationResult(RiskType.THEFT, new BigDecimal(100), new BigDecimal(30));
         RiskCalculationResult thirdPartyRisk = new RiskCalculationResult(RiskType.THIRD_PARTY_DAMAGE, new BigDecimal(100), new BigDecimal(25));
 
-        objectCalculationResult.setInsuredObject(insuredObject);
-        objectCalculationResult.setRiskCalculationResults(List.of(damageRisk, theftRisk, thirdPartyRisk));
-
         // when
-        CalculationResult calculationResult = mapper.convertToCalculationResult(objectCalculationResult);
+        ObjectCalculationResult calculationResult = mapper.convertToCalculationResult(insuredObject, List.of(damageRisk, theftRisk, thirdPartyRisk));
 
 
         // then
-        assertThat(calculationResult.getSumInsured()).isEqualTo(objectCalculationResult.getInsuredObject().getSumInsured());
+        assertThat(calculationResult.getSumInsured()).isEqualTo(insuredObject.getSumInsured());
 
         assertThat(calculationResult.getRisks().get(0).getPremium()).isEqualTo(new BigDecimal(20));
         assertThat(calculationResult.getRisks().get(1).getPremium()).isEqualTo(new BigDecimal(30));

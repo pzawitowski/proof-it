@@ -1,10 +1,14 @@
 package com.proofit.insurance.mapper;
 
-import com.proofit.insurance.model.InsuredObjectCalculationResult;
+import com.proofit.insurance.model.InsuredObject;
+import com.proofit.insurance.model.RiskCalculationResult;
 import com.proofit.insurance.view.Attributes;
-import com.proofit.insurance.view.CalculationResult;
+import com.proofit.insurance.view.ObjectCalculationResult;
+import com.proofit.insurance.view.Risk;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ObjectCalculationResultMapper {
@@ -14,15 +18,20 @@ public class ObjectCalculationResultMapper {
         this.modelMapper = modelMapper;
     }
 
-    public CalculationResult convertToCalculationResult(InsuredObjectCalculationResult in) {
-        CalculationResult result = modelMapper.typeMap(InsuredObjectCalculationResult.class, CalculationResult.class).
-                addMappings(mapper -> mapper.map(src -> src.getRiskCalculationResults(), CalculationResult::setRisks)).map(in);
+    public ObjectCalculationResult convertToCalculationResult(InsuredObject in, List<RiskCalculationResult> riskCalculationResults) {
+        ObjectCalculationResult result = modelMapper.map(in, ObjectCalculationResult.class);
+
+        result.setRisks(
+            riskCalculationResults
+                    .stream()
+                    .map(calculation -> modelMapper.map(calculation, Risk.class))
+                    .toList());
 
         result.setAttributes(new Attributes());
-        result.getAttributes().setMake(in.getInsuredObject().getMake());
-        result.getAttributes().setModel(in.getInsuredObject().getModel());
-        result.getAttributes().setManufactureYear(in.getInsuredObject().getManufactureYear());
-        result.setCoverageType(in.getInsuredObject().getCoverage());
+        result.getAttributes().setMake(in.getMake());
+        result.getAttributes().setModel(in.getModel());
+        result.getAttributes().setManufactureYear(in.getManufactureYear());
+        result.setCoverageType(in.getCoverage());
 
         return result;
     }

@@ -1,14 +1,14 @@
 package com.proofit.insurance.controller;
 
-import com.proofit.insurance.calculator.InsuranceCalculator;
+import com.proofit.insurance.calculator.Calculator;
 import com.proofit.insurance.mapper.BicycleMapper;
 import com.proofit.insurance.mapper.ObjectCalculationResultMapper;
 import com.proofit.insurance.model.InsuredObject;
-import com.proofit.insurance.model.InsuredObjectCalculationResult;
+import com.proofit.insurance.model.RiskCalculationResult;
 import com.proofit.insurance.view.Bicycle;
 import com.proofit.insurance.view.CalculationRequest;
 import com.proofit.insurance.view.CalculationResponse;
-import com.proofit.insurance.view.CalculationResult;
+import com.proofit.insurance.view.ObjectCalculationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ import java.util.List;
 public class BicyclesInsuranceController {
 
     @Autowired
-    InsuranceCalculator insuranceCalculator;
+    Calculator insuranceCalculator;
 
     @Autowired
     BicycleMapper bicyclemapper;
@@ -34,25 +35,25 @@ public class BicyclesInsuranceController {
 
     @PostMapping(value = "/calculate", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CalculationResponse> calculate(@RequestBody CalculationRequest request) {
-
-        List<InsuredObject> insuredObjects = request.getBicycles().stream().
-                map(this::convertToBicycle)
+        List<InsuredObject> insuredObjects = request.getBicycles().stream()
+                .map(this::convertToInsuredObject)
                 .toList();
 
-        List<InsuredObjectCalculationResult> objectCalculationResults = insuranceCalculator.calculate(insuredObjects);
 
-        List<CalculationResult> calculationResults = objectCalculationResults.stream()
-                .map(this::convertToInsuredCalculationResult)
-                .toList();
+        List<ObjectCalculationResult> objects = new ArrayList<>();
+        for (InsuredObject insuredObject : insuredObjects) {
+            List<RiskCalculationResult> calculationResults = insuranceCalculator.calculate(insuredObject);
+            objects.add(convertToInsuredCalculationResult(insuredObject, calculationResults));
+        }
 
-        return ResponseEntity.ok(new CalculationResponse(calculationResults));
+        return ResponseEntity.ok(new CalculationResponse(objects));
     }
 
-    private InsuredObject convertToBicycle(Bicycle bicycle) {
+    private InsuredObject convertToInsuredObject(Bicycle bicycle) {
         return bicyclemapper.convertToInsuredObject(bicycle);
     }
 
-    private CalculationResult convertToInsuredCalculationResult(InsuredObjectCalculationResult o) {
-        return objectCalculationResultMapper.convertToCalculationResult(o);
+    private ObjectCalculationResult convertToInsuredCalculationResult(InsuredObject insuredObject , List<RiskCalculationResult> riskCalculationResults) {
+        return objectCalculationResultMapper.convertToCalculationResult(insuredObject, riskCalculationResults);
     }
 }

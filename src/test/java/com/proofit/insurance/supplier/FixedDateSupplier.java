@@ -1,14 +1,10 @@
 package com.proofit.insurance.supplier;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
-public class FixedDateSupplier implements DateSupplier{
+public class FixedDateSupplier implements DateSupplier {
 
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-    LocalDate date;
+    private LocalDate date;
 
     public FixedDateSupplier(String dateString) {
         this.date = LocalDate.parse(dateString);

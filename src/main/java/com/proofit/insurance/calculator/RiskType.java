@@ -1,4 +1,4 @@
-package com.proofit.insurance.model;
+package com.proofit.insurance.calculator;
 
 public enum RiskType {
     THEFT,

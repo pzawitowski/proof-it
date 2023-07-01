@@ -7,23 +7,23 @@ public class CalculationResponse {
     public CalculationResponse() {
     }
 
-    public CalculationResponse(List<CalculationResult> objects) {
+    public CalculationResponse(List<ObjectCalculationResult> objects) {
         this.objects = objects;
     }
 
-    private List<CalculationResult> objects;
+    private List<ObjectCalculationResult> objects;
 
-    public List<CalculationResult> getObjects() {
+    public List<ObjectCalculationResult> getObjects() {
         return objects;
     }
 
-    public void setObjects(List<CalculationResult> objects) {
+    public void setObjects(List<ObjectCalculationResult> objects) {
         this.objects = objects;
     }
 
     public BigDecimal getPremium() {
         return objects.stream().
-                map(CalculationResult::getPremium).
+                map(ObjectCalculationResult::getPremium).
                 reduce(new BigDecimal("0.00"), BigDecimal::add);
     }
 
