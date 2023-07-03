@@ -12,14 +12,14 @@ import java.util.List;
 
 @Component
 public class ObjectCalculationResultMapper {
-    ModelMapper modelMapper = new ModelMapper();
+    ModelMapper modelMapper;
 
     public ObjectCalculationResultMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
-    public ObjectCalculationResult convertToCalculationResult(InsuredObject in, List<RiskCalculationResult> riskCalculationResults) {
-        ObjectCalculationResult result = modelMapper.map(in, ObjectCalculationResult.class);
+    public ObjectCalculationResult convertToCalculationResult(InsuredObject insuredObject, List<RiskCalculationResult> riskCalculationResults) {
+        ObjectCalculationResult result = modelMapper.map(insuredObject, ObjectCalculationResult.class);
 
         result.setRisks(
             riskCalculationResults
@@ -27,11 +27,13 @@ public class ObjectCalculationResultMapper {
                     .map(calculation -> modelMapper.map(calculation, Risk.class))
                     .toList());
 
-        result.setAttributes(new Attributes());
-        result.getAttributes().setMake(in.getMake());
-        result.getAttributes().setModel(in.getModel());
-        result.getAttributes().setManufactureYear(in.getManufactureYear());
-        result.setCoverageType(in.getCoverage());
+        Attributes attributes = new Attributes();
+        attributes.setMake(insuredObject.getMake());
+        attributes.setModel(insuredObject.getModel());
+        attributes.setManufactureYear(insuredObject.getManufactureYear());
+
+        result.setAttributes(attributes);
+        result.setCoverageType(insuredObject.getCoverage());
 
         return result;
     }

@@ -8,10 +8,12 @@ import com.proofit.insurance.supplier.FactorData;
 
 import java.math.BigDecimal;
 
-import static java.math.BigDecimal.*;
+import static java.math.BigDecimal.valueOf;
 import static java.math.RoundingMode.HALF_EVEN;
 
 public abstract class AbstractPremiumCalculationFormula implements CalculationFormula {
+
+    public static final int DIVISION_SCALE = 10;
 
     protected CalculationDataSupplier dataSupplier;
     protected DateSupplier dateSupplier = new DefaultDateSupplier();
@@ -33,7 +35,7 @@ public abstract class AbstractPremiumCalculationFormula implements CalculationFo
 
         FactorData factorData = dataSupplier.getSumInsuredFactorDataBySum(object.getSumInsured());
 
-        return factorData.getFactorMax().subtract(factorData.getFactorMax().subtract(factorData.getFactorMin()).multiply(ageMax.subtract(ageActual)).divide(ageMax.subtract(ageMin), ROUND_SCALE, HALF_EVEN));
+        return factorData.getFactorMax().subtract(factorData.getFactorMax().subtract(factorData.getFactorMin()).multiply(ageMax.subtract(ageActual)).divide(ageMax.subtract(ageMin), DIVISION_SCALE, HALF_EVEN));
     }
 
     protected BigDecimal ageFactor(InsuredObject object) {
@@ -43,7 +45,7 @@ public abstract class AbstractPremiumCalculationFormula implements CalculationFo
         BigDecimal ageMax = factorData.getValueTo();
 
 
-        return factorData.getFactorMax().subtract(factorData.getFactorMax().subtract(factorData.getFactorMin()).multiply(ageMax.subtract(ageActual).divide(ageMax.subtract(ageMin), ROUND_SCALE, HALF_EVEN)));
+        return factorData.getFactorMax().subtract(factorData.getFactorMax().subtract(factorData.getFactorMin()).multiply(ageMax.subtract(ageActual).divide(ageMax.subtract(ageMin), DIVISION_SCALE, HALF_EVEN)));
     }
 
     private BigDecimal getObjectAge(InsuredObject object) {

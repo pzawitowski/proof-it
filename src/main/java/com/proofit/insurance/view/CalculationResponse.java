@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class CalculationResponse {
+    private List<ObjectCalculationResult> objects;
+
     public CalculationResponse() {
     }
 
     public CalculationResponse(List<ObjectCalculationResult> objects) {
         this.objects = objects;
     }
-
-    private List<ObjectCalculationResult> objects;
 
     public List<ObjectCalculationResult> getObjects() {
         return objects;

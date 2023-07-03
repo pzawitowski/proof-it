@@ -19,7 +19,7 @@ import static java.math.BigDecimal.valueOf;
 import static java.util.List.of;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class BasePremiumFormulaTest {
+public abstract class BaseFormulaTest {
     protected List<InsuredObject> insuredObjects = new ArrayList<>();
     protected CalculationDataSupplier dataSupplier;
     protected DateSupplier dateSupplier = new FixedDateSupplier("2022-01-01");
@@ -31,5 +31,9 @@ public abstract class BasePremiumFormulaTest {
         insuredObjects.add(new InsuredObject("OTHER", "OTHER", "EXTRA", 2019, valueOf(100), of(DAMAGE, THIRD_PARTY_DAMAGE)));
 
         dataSupplier = new GroovyCalculationDataSupplier(new File("src/test/resources", "BaseScript.groovy"), dateSupplier);
+    }
+
+    public List<InsuredObject> getInsuredObjects() {
+        return insuredObjects;
     }
 }

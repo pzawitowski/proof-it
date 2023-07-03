@@ -3,18 +3,30 @@ package com.proofit.insurance.validator;
 import com.proofit.insurance.calculator.RiskType;
 import com.proofit.insurance.model.InsuredObject;
 import com.proofit.insurance.supplier.FixedDateSupplier;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
 
 public class InsuranceObjectValidatorTest {
 
     Validator validator = new InsuredObjectValidator(new FixedDateSupplier("2023-01-01"));
+
+
+    @Test
+    void validate_whenObjectIsValid_NoExceptionShouldBeThrown() {
+        // given
+        InsuredObject insuredObject = getValidInsuredObject();
+
+        // when
+        validator.validate(insuredObject);
+
+        // then
+        Assertions.assertThatNoException();
+    }
 
     @Test
     void validate_whenModelIsEmpty_shouldThrowIllegalArgumentException() {

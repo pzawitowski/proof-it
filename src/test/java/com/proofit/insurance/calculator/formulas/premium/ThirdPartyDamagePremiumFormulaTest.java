@@ -1,5 +1,7 @@
-package com.proofit.insurance.calculator.formulas;
+package com.proofit.insurance.calculator.formulas.premium;
 
+import com.proofit.insurance.calculator.formulas.BaseFormulaTest;
+import com.proofit.insurance.calculator.formulas.CalculationFormula;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -7,10 +9,11 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ThirdPartyDamagePremiumFormulaTest extends  BasePremiumFormulaTest {
+class ThirdPartyDamagePremiumFormulaTest extends BaseFormulaTest {
 
     @ParameterizedTest
     @CsvSource({"0,12.00",
+                "1,14.73",
                 "2,14.40"})
     void calculateFormula_whenActualObjectProvided_shouldReturnThirdPartyDamagePremium(Integer objectIndex, BigDecimal expectedPremium) {
         // given insuredObjects and

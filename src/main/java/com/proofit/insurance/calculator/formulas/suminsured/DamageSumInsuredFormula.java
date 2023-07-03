@@ -1,13 +1,14 @@
-package com.proofit.insurance.calculator.formulas;
+package com.proofit.insurance.calculator.formulas.suminsured;
 
-import com.proofit.insurance.model.InsuredObject;
 import com.proofit.insurance.calculator.RiskType;
+import com.proofit.insurance.calculator.formulas.CalculationFormula;
+import com.proofit.insurance.model.InsuredObject;
 
 import java.math.BigDecimal;
 
 import static java.math.RoundingMode.HALF_EVEN;
 
-public class DamageSumInsuredFormula implements CalculationFormula{
+public class DamageSumInsuredFormula implements CalculationFormula {
     @Override
     public RiskType getRiskType() {
         return RiskType.DAMAGE;
