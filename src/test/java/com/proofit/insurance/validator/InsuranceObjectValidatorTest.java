@@ -1,6 +1,6 @@
 package com.proofit.insurance.validator;
 
-import com.proofit.insurance.calculator.RiskType;
+import com.proofit.insurance.calculator.BaseRiskTypes;
 import com.proofit.insurance.model.InsuredObject;
 import com.proofit.insurance.supplier.FixedDateSupplier;
 import org.assertj.core.api.Assertions;
@@ -108,7 +108,7 @@ public class InsuranceObjectValidatorTest {
     }
 
     private InsuredObject getValidInsuredObject() {
-        return new InsuredObject("Canyon", "Model 1", "STANDARD", 2022, BigDecimal.valueOf(10000.0), List.of(RiskType.DAMAGE));
+        return new InsuredObject("Canyon", "Model 1", "STANDARD", 2022, BigDecimal.valueOf(10000.0), List.of(BaseRiskTypes.DAMAGE));
 
     }
 }

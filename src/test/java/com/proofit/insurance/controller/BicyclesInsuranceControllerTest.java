@@ -1,7 +1,6 @@
 package com.proofit.insurance.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proofit.insurance.calculator.RiskType;
 import com.proofit.insurance.validator.InsuredObjectValidator;
 import com.proofit.insurance.view.Bicycle;
 import com.proofit.insurance.view.CalculationRequest;
@@ -15,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.proofit.insurance.calculator.BaseRiskTypes.*;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -41,7 +41,7 @@ class BicyclesInsuranceControllerTest {
         bicycle.setCoverage("EXTRA");
         bicycle.setManufactureYear(2015);
         bicycle.setSumInsured(new BigDecimal("1000.00"));
-        bicycle.setRisks(List.of(RiskType.DAMAGE));
+        bicycle.setRisks(List.of(DAMAGE));
 
         request.setBicycles(List.of(bicycle));
 
@@ -68,7 +68,7 @@ class BicyclesInsuranceControllerTest {
         bicycleOne.setCoverage("EXTRA");
         bicycleOne.setManufactureYear(2015);
         bicycleOne.setSumInsured(new BigDecimal("1000.00"));
-        bicycleOne.setRisks(List.of(RiskType.DAMAGE));
+        bicycleOne.setRisks(List.of(DAMAGE));
 
         Bicycle bicycleTwo = new Bicycle();
         bicycleTwo.setMake("Whyte");
@@ -76,7 +76,7 @@ class BicyclesInsuranceControllerTest {
         bicycleTwo.setCoverage("STANDARD");
         bicycleTwo.setManufactureYear(2019);
         bicycleTwo.setSumInsured(new BigDecimal("500.00"));
-        bicycleTwo.setRisks(List.of(RiskType.THIRD_PARTY_DAMAGE, RiskType.DAMAGE, RiskType.THEFT));
+        bicycleTwo.setRisks(List.of(THIRD_PARTY_DAMAGE, DAMAGE, THEFT));
 
         request.setBicycles(List.of(bicycleOne, bicycleTwo));
 
@@ -117,7 +117,7 @@ class BicyclesInsuranceControllerTest {
         bicycle.setCoverage("EXTRA");
         bicycle.setManufactureYear(2015);
         bicycle.setSumInsured(new BigDecimal(InsuredObjectValidator.MAX_SUM_INSURED + 1000));
-        bicycle.setRisks(List.of(RiskType.DAMAGE));
+        bicycle.setRisks(List.of(DAMAGE));
 
 
         request.setBicycles(List.of(bicycle));

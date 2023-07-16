@@ -1,7 +1,5 @@
 package com.proofit.insurance.model;
 
-import com.proofit.insurance.calculator.RiskType;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -12,9 +10,21 @@ public class InsuredObject {
     private String make;
     private String coverage;
 
-    private List<RiskType> risks;
+    private List<String> risks;
+
+    private Integer age;
 
     public InsuredObject() {
+    }
+
+    public InsuredObject(String make, String model, String coverage, Integer manufactureYear, BigDecimal sumInsured, List<String> risks, Integer age) {
+        this.sumInsured = sumInsured;
+        this.manufactureYear = manufactureYear;
+        this.model = model;
+        this.make = make;
+        this.coverage = coverage;
+        this.risks = risks;
+        this.age = age;
     }
 
     public InsuredObject(String make, String model, String coverage, Integer manufactureYear, BigDecimal sumInsured) {
@@ -25,7 +35,7 @@ public class InsuredObject {
         this.coverage = coverage;
     }
 
-    public InsuredObject(String make, String model, String coverage, Integer manufactureYear, BigDecimal sumInsured, List<RiskType> risks) {
+    public InsuredObject(String make, String model, String coverage, Integer manufactureYear, BigDecimal sumInsured, List<String> risks) {
         this.sumInsured = sumInsured;
         this.manufactureYear = manufactureYear;
         this.model = model;
@@ -74,11 +84,19 @@ public class InsuredObject {
         this.coverage = coverage;
     }
 
-    public List<RiskType> getRisks() {
+    public List<String> getRisks() {
         return risks;
     }
 
-    public void setRisks(List<RiskType> risks) {
+    public void setRisks(List<String> risks) {
         this.risks = risks;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

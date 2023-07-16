@@ -22,7 +22,6 @@ import java.util.List;
 public class BicyclesInsuranceController {
 
     Calculator insuranceCalculator;
-
     BicycleMapper bicyclemapper;
 
     ObjectCalculationResultMapper objectCalculationResultMapper;

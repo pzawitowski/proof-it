@@ -1,25 +1,23 @@
 package com.proofit.insurance.model;
 
-import com.proofit.insurance.calculator.RiskType;
-
 import java.math.BigDecimal;
 
 public class RiskCalculationResult {
-    private RiskType riskType;
+    private String riskType;
     private BigDecimal sumInsured;
     private BigDecimal premium;
 
-    public RiskCalculationResult(RiskType riskType, BigDecimal sumInsured, BigDecimal premium) {
+    public RiskCalculationResult(String riskType, BigDecimal sumInsured, BigDecimal premium) {
         this.riskType = riskType;
         this.sumInsured = sumInsured;
         this.premium = premium;
     }
 
-    public RiskType getRiskType() {
+    public String getRiskType() {
         return riskType;
     }
 
-    public void setRiskType(RiskType riskType) {
+    public void setRiskType(String riskType) {
         this.riskType = riskType;
     }
 

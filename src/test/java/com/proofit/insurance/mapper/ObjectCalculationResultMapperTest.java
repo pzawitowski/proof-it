@@ -2,7 +2,6 @@ package com.proofit.insurance.mapper;
 
 import com.proofit.insurance.model.InsuredObject;
 import com.proofit.insurance.model.RiskCalculationResult;
-import com.proofit.insurance.calculator.RiskType;
 import com.proofit.insurance.view.ObjectCalculationResult;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -10,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.proofit.insurance.calculator.BaseRiskTypes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ObjectCalculationResultMapperTest {
@@ -23,9 +23,9 @@ class ObjectCalculationResultMapperTest {
 
         InsuredObject insuredObject = new InsuredObject("Canyon", "Model", "STANDARD", 2023, new BigDecimal("100"));
 
-        RiskCalculationResult damageRisk = new RiskCalculationResult(RiskType.DAMAGE, new BigDecimal(50), new BigDecimal(20));
-        RiskCalculationResult theftRisk = new RiskCalculationResult(RiskType.THEFT, new BigDecimal(100), new BigDecimal(30));
-        RiskCalculationResult thirdPartyRisk = new RiskCalculationResult(RiskType.THIRD_PARTY_DAMAGE, new BigDecimal(100), new BigDecimal(25));
+        RiskCalculationResult damageRisk = new RiskCalculationResult(DAMAGE, new BigDecimal(50), new BigDecimal(20));
+        RiskCalculationResult theftRisk = new RiskCalculationResult(THEFT, new BigDecimal(100), new BigDecimal(30));
+        RiskCalculationResult thirdPartyRisk = new RiskCalculationResult(THIRD_PARTY_DAMAGE, new BigDecimal(100), new BigDecimal(25));
 
         // when
         ObjectCalculationResult calculationResult = mapper.convertToCalculationResult(insuredObject, List.of(damageRisk, theftRisk, thirdPartyRisk));

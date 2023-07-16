@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.proofit.insurance.calculator.RiskType.*;
+import static com.proofit.insurance.calculator.BaseRiskTypes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BicycleMapperTest {
